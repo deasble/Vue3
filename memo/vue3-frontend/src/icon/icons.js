@@ -9,8 +9,8 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
 
-library.add(fas, far, fab)
 const icon = app => {
+    library.add(fas, far, fab)
     app.component('font-awesome-icon', FontAwesomeIcon)
 }
 
