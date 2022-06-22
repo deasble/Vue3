@@ -50,7 +50,6 @@ export default defineComponent({
     const memo = computed({
       get: () => store.getters.MEMO,
       set: (value) => {
-        console.log(value);
         store.commit("SET_MEMO", value);
       },
     });
@@ -61,8 +60,8 @@ export default defineComponent({
     const isMemoList = ref(false);
 
     const memoAdd = () => {
-      const result = store.dispatch("POST_MEMO_LIST");
-      console.log(result);
+      store.dispatch("POST_MEMO_LIST");
+      store.dispatch("SET_MEMO_LIST");
     };
 
     const getMemo = () => {
