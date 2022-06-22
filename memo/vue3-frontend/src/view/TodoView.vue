@@ -25,7 +25,7 @@
               <button class="btn edit mr-2" @click="getMemo(list.id)">
                 <span>수정</span>
               </button>
-              <button v-if="!findMemo" class="btn delete" @click="del(list.id)">
+              <button class="btn delete" @click="del(list.id)">
                 <span>삭제</span>
               </button>
             </div>
@@ -53,7 +53,7 @@ export default defineComponent({
         store.commit("SET_MEMO", value);
       },
     });
-    const findMemo = ref("");
+    const findMemo = ref(false);
     const memo_box = ref(null);
 
     const MEMO_LIST = computed(() => store.getters.MEMO_LIST);
@@ -61,16 +61,18 @@ export default defineComponent({
 
     const memoAdd = () => {
       store.dispatch("POST_MEMO_LIST");
+      store.commit("SET_MEMO", "");
       store.dispatch("SET_MEMO_LIST");
     };
 
-    const getMemo = () => {
-      // findMemo.value = MEMO_LIST.value.find((memo) => memo.id === id);
-      // memo.value = findMemo.value.memo;
-      // memo_box.value.focus();
+    const getMemo = (id) => {
+      store.dispatch("SET_FIND_MEMO", id);
+      findMemo.value = true;
     };
 
-    const edit = () => {};
+    const edit = () => {
+      store.dispatch("PUT_MEMO_LIST", memo);
+    };
 
     const del = () => {
       // axios.delete(`/api/memos/${id}`).then((response) => {
