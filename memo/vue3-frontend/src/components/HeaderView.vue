@@ -14,8 +14,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .header {
-  display: flex;
-  justify-content: center;
+  text-align: center;
   height: 60px;
   border-bottom: 1px solid black;
 
