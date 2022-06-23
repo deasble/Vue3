@@ -6,7 +6,6 @@
           class="input_box"
           type="text"
           v-model="memo"
-          @keyup.enter="memoAdd"
           ref="memo_box"
           autofocus
         />
@@ -40,19 +39,20 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref } from "vue";
-import { useStore } from "vuex";
+import { computed, defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   setup() {
     const store = useStore();
 
     const memo = computed({
-      get: () => store.getters.MEMO,
+      get: () => store.getters.TODO_MEMO,
       set: (value) => {
-        store.commit("SET_MEMO", value);
+        store.commit('SET_TODO_MEMO', value);
       },
     });
+
     const findMemo = ref(false);
     const memo_box = ref(null);
 
@@ -60,30 +60,28 @@ export default defineComponent({
     const isMemoList = ref(false);
 
     const memoAdd = () => {
-      store.dispatch("POST_MEMO_LIST");
-      store.commit("SET_MEMO", "");
-      store.dispatch("SET_MEMO_LIST");
+      store.dispatch('POST_MEMO_LIST');
+      store.dispatch('SET_MEMO_LIST');
     };
 
     const getMemo = (id) => {
-      store.dispatch("SET_FIND_MEMO", id);
+      const result = MEMO_LIST.value.find((memo) => memo.id === id);
+      store.dispatch('SET_FIND_MEMO', result);
       findMemo.value = true;
     };
 
     const edit = () => {
-      store.dispatch("PUT_MEMO_LIST", memo);
+      store.dispatch('PUT_MEMO_LIST');
+      store.dispatch('SET_MEMO_LIST');
     };
 
-    const del = () => {
-      // axios.delete(`/api/memos/${id}`).then((response) => {
-      //   MEMO_LIST.value = response.data;
-      //   if (!MEMO_LIST.value.length) isMemoList.value = false;
-      // });
+    const del = (id) => {
+      store.dispatch('DELETE_MEMO_LIST', id);
+      if (!MEMO_LIST.value.length) isMemoList.value = false;
     };
 
     const onCreated = async () => {
-      await store.dispatch("SET_MEMO_LIST");
-
+      await store.dispatch('SET_MEMO_LIST');
       if (MEMO_LIST.value) isMemoList.value = true;
     };
 
@@ -106,5 +104,5 @@ export default defineComponent({
 
 
 <style lang="scss" scoped>
-@import "@/assets/scss/TodoView.scss";
+@import '@/assets/scss/TodoView.scss';
 </style>
