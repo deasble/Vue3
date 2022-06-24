@@ -1,0 +1,19 @@
+.btn {
+    margin-right: 5px;
+    border: 1px solid;
+    padding: 0 10px;
+
+    &.create {
+        border: none;
+        padding: none;
+    }
+
+    &.update {
+        color: blue;
+    }
+
+    &.delete {
+        color: red;
+        margin: 0;
+    }
+}

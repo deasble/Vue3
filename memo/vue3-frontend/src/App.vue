@@ -1,6 +1,10 @@
 <template>
   <Header />
-  <Body />
+  <section>
+    <main>
+      <Body />
+    </main>
+  </section>
   <Footer />
 </template>
 
@@ -16,3 +20,10 @@ export default defineComponent({
   setup() {},
 });
 </script>
+
+<style lang="scss" scoped>
+.bodyview {
+  display: flex;
+  background: #f0f1f3;
+}
+</style>
