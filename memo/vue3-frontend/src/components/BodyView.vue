@@ -30,7 +30,7 @@ export default defineComponent({
   background: #f0f1f3;
 
   .todo_container_items {
-    width: 370px;
+    width: 410px;
     background: #fff;
     margin: 0 auto;
   }
