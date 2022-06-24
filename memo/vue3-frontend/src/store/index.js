@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { FETCH_MEMO_LIST } from "@/api/index.js";
+import { FETCH_MEMO_LIST, CREATE_MEMO } from "@/api/index.js";
 
 export default createStore({
   state: {
@@ -15,6 +15,7 @@ export default createStore({
     SET_MEMO_LIST: async ({ commit }) => {
       const result = await FETCH_MEMO_LIST();
       commit('SET_MEMO_LIST', result.data);
-    }
+    },
+    
   },
 });

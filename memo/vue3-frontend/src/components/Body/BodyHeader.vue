@@ -1,7 +1,7 @@
 <template>
   <section class="bodyheader">
     <article class="body_in">
-      <input type="text" class="td_input" v-model="memo" />
+      <input type="text" class="td_input" v-model="memo" @keyup.enter="Add" />
       <button class="btn create" @click="Add">
         <font-awesome-icon icon="fa-solid fa-circle-plus" />
       </button>
@@ -11,13 +11,19 @@
 
 <script>
 import { defineComponent, ref } from "vue";
+import { useStore } from "vuex";
+import { CREATE_MEMO } from "@/api/index.js";
 
 export default defineComponent({
   setup() {
+    const store = useStore();
+
     const memo = ref("");
 
     const Add = () => {
-      console.log(memo.value);
+      CREATE_MEMO({ memo: memo.value });
+      store.dispatch("SET_MEMO_LIST");
+      memo.value = "";
     };
 
     return {
