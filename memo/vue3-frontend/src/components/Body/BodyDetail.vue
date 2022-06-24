@@ -11,12 +11,16 @@
           <li v-for="list in SHOW_MEMO_LIST" :key="list">
             <span class="text-sm">{{ list.memo }}</span>
             <div>
-              <button class="btn update">수정</button>
-              <button class="btn delete">삭제</button>
+              <button class="btn update">
+                <span class="text-sm">수정</span>
+              </button>
+              <button class="btn delete">
+                <span class="text-sm">삭제</span>
+              </button>
             </div>
           </li>
         </ul>
-        <div v-if="SHOW_MEMO_LIST.length === MAX_MEMO_LIST" class="btn_box">
+        <div v-if="MAX_MEMO_LIST_INDEX > START_INDEX" class="btn_box">
           <button class="btn move" @click="INDEX_PLUS">
             <font-awesome-icon icon="fa-solid fa-angle-down" />
           </button>
@@ -44,6 +48,10 @@ export default defineComponent({
     const START_INDEX = ref(0);
     const MAX_MEMO_LIST = ref(5);
 
+    const MAX_MEMO_LIST_INDEX = computed(
+      () => MEMO_LIST.value.length / MAX_MEMO_LIST.value - 1
+    );
+
     const SHOW_MEMO_LIST = computed(() => {
       const show = START_INDEX.value * MAX_MEMO_LIST.value;
       return MEMO_LIST.value.slice(show, show + MAX_MEMO_LIST.value);
@@ -66,6 +74,7 @@ export default defineComponent({
       isMemoList,
       START_INDEX,
       MAX_MEMO_LIST,
+      MAX_MEMO_LIST_INDEX,
       INDEX_PLUS,
       INDEX_MINUS,
     };
