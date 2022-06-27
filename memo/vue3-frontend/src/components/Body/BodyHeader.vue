@@ -21,8 +21,7 @@ export default defineComponent({
     const memo = ref("");
 
     const Add = () => {
-      CREATE_MEMO({ memo: memo.value });
-      store.dispatch("SET_MEMO_LIST");
+      store.dispatch("CREATE_MEMO", memo);
       memo.value = "";
     };
 

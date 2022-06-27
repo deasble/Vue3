@@ -14,7 +14,7 @@
               <button class="btn update" @click="openModal(list.id)">
                 <span class="text-sm">수정</span>
               </button>
-              <button class="btn delete">
+              <button class="btn delete" @click="remove(list.id)">
                 <span class="text-sm">삭제</span>
               </button>
             </div>
@@ -65,6 +65,11 @@ export default defineComponent({
       store.commit("SET_ISMODAL", true);
     };
 
+    const remove = (id) => {
+      const result = confirm("삭제 하시겠습니까?");
+      if (result) store.dispatch("DELETE_MEMO_LIST", id);
+    };
+
     const onCreated = async () => {
       await store.dispatch("SET_MEMO_LIST");
       if (MEMO_LIST.value) {
@@ -83,6 +88,7 @@ export default defineComponent({
       INDEX_PLUS,
       INDEX_MINUS,
       openModal,
+      remove,
     };
   },
 });

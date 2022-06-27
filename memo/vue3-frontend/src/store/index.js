@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { FETCH_MEMO_LIST, CREATE_MEMO, UPDATE_MEMO_LIST } from "@/api/index.js";
+import { FETCH_MEMO_LIST, CREATE_MEMO, UPDATE_MEMO_LIST, DELETE_MEMO_LIST } from "@/api/index.js";
 
 export default createStore({
   state: {
@@ -26,13 +26,21 @@ export default createStore({
       const result = await FETCH_MEMO_LIST();
       commit('SET_MEMO_LIST', result.data);
     },
+    CREATE_MEMO: async({ commit }, payload) => {
+      const result = CREATE_MEMO({ memo: payload.value });
+      commit('SET_MEMO_LIST', result.data);
+    },
     SET_FINDMEMO: ({ getters, commit }, payload) => {
       const result = getters.MEMO_LIST.find(memo => memo.id === payload)
-      commit('SET_FINDMEMO_ID', result.id)
-      commit('SET_FINDMEMO_MEMO', result.memo)
+      commit('SET_FINDMEMO_ID', result.id);
+      commit('SET_FINDMEMO_MEMO', result.memo);
     },
     UPDATE_MEMO_LIST: async ({ commit }, payload) => {
-      const result = await UPDATE_MEMO_LIST(payload)
+      const result = await UPDATE_MEMO_LIST(payload);
+      commit('SET_MEMO_LIST', result.data);
+    },
+    DELETE_MEMO_LIST: async ({ commit }, payload) => {
+      const result = await DELETE_MEMO_LIST(payload);
       commit('SET_MEMO_LIST', result.data);
     }
   },
