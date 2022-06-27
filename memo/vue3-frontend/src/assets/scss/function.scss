@@ -21,4 +21,20 @@
         margin: 0;
         border: 0;
     }
+
+    &.modalupdate {
+        width: 100%;
+        border: 0;
+        padding: 10px;
+    }
+}
+
+.td_input {
+    width: 100%;
+}
+
+.boundary {
+    border-top: 1px solid #ebebeb;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }

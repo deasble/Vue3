@@ -2,14 +2,16 @@
   <div class="todo_container">
     <div class="todo_container_items">
       <BodyHeader />
-      <div class="mx-2" style="border-top: 1px solid #ebebeb"></div>
+      <div class="boundary"></div>
       <BodyDetail />
     </div>
   </div>
+  <Edit v-if="isModal" />
 </template>
 
 <script>
-import { defineAsyncComponent, defineComponent } from "vue";
+import { computed, defineAsyncComponent, defineComponent } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -19,8 +21,17 @@ export default defineComponent({
     BodyDetail: defineAsyncComponent(() =>
       import("@/components/Body/BodyDetail.vue")
     ),
+    Edit: defineAsyncComponent(() => import("@/components/EditModal.vue")),
   },
-  setup() {},
+  setup() {
+    const store = useStore();
+
+    const isModal = computed(() => store.getters.ISMODAL);
+
+    return {
+      isModal,
+    };
+  },
 });
 </script>
 

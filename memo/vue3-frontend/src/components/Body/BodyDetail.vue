@@ -11,7 +11,7 @@
           <li v-for="list in SHOW_MEMO_LIST" :key="list">
             <span class="text-sm">{{ list.memo }}</span>
             <div>
-              <button class="btn update">
+              <button class="btn update" @click="openModal(list.id)">
                 <span class="text-sm">수정</span>
               </button>
               <button class="btn delete">
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineAsyncComponent, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
@@ -60,6 +60,11 @@ export default defineComponent({
     const INDEX_PLUS = () => START_INDEX.value++;
     const INDEX_MINUS = () => START_INDEX.value--;
 
+    const openModal = (id) => {
+      store.dispatch("SET_FINDMEMO", id);
+      store.commit("SET_ISMODAL", true);
+    };
+
     const onCreated = async () => {
       await store.dispatch("SET_MEMO_LIST");
       if (MEMO_LIST.value) {
@@ -77,6 +82,7 @@ export default defineComponent({
       MAX_MEMO_LIST_INDEX,
       INDEX_PLUS,
       INDEX_MINUS,
+      openModal,
     };
   },
 });
