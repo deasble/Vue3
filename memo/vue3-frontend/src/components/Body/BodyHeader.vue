@@ -43,10 +43,6 @@ export default defineComponent({
 
   .body_in {
     display: flex;
-
-    .td_input {
-      width: 100%;
-    }
   }
 }
 </style>
