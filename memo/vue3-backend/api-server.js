@@ -7,9 +7,11 @@ const { body, validationResult } = require('express-validator');
 
 app.use(bodyParser.json());
 
+const selectQuery = "select * from memos order by id desc";
+
 // memos 보내기
 app.get('/api/memos', async (req, res) => {
-  const result = await database.run("select * from memos");
+  const result = await database.run(selectQuery);
   res.send(result);
 })
 
@@ -20,8 +22,8 @@ app.post('/api/memos', body('memo', '공백입니다.').trim().notEmpty(), async
     return res.status(400).json({ errors: errors.array() });
   }
   await database.run(`insert into memos(memo) values ('${req.body.memo}')`);
-  const result = await database.run("select * from memos");
-  res.send(result)
+  const result = await database.run(selectQuery);
+  res.send(result);
 })
 
 // memo 수정
@@ -31,15 +33,15 @@ app.put('/api/memo', body('memo', '공백입니다.').trim().notEmpty(), async (
     return res.status(400).json({ errors: errors.array() });
   }
   await database.run(`update memos set memo='${req.body.memo}' where id = '${req.body.id}'`);
-  const result = await database.run("select * from memos");
-  res.send(result)
+  const result = await database.run(selectQuery);
+  res.send(result);
 })
 
 //memo 삭제
 app.delete('/api/memos/:id', async (req, res) => {
   await database.run(`DELETE FROM memo.memos WHERE id=${req.params.id}`);
-  const result = await database.run("select * from memos");
-  res.send(result)
+  const result = await database.run(selectQuery);
+  res.send(result);
 })
 
 app.listen(port, () => {
