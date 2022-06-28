@@ -7,6 +7,8 @@ const { body, validationResult } = require('express-validator');
 
 app.use(bodyParser.json());
 
+app.use(express.static('dist'));
+
 const selectQuery = "select * from memos order by id desc";
 
 // memos 보내기
