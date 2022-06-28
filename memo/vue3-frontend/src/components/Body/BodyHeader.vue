@@ -12,7 +12,6 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import { CREATE_MEMO } from "@/api/index.js";
 
 export default defineComponent({
   setup() {

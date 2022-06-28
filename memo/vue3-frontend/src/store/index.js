@@ -26,8 +26,8 @@ export default createStore({
       const result = await FETCH_MEMO_LIST();
       commit('SET_MEMO_LIST', result.data);
     },
-    CREATE_MEMO: async({ commit }, payload) => {
-      const result = CREATE_MEMO({ memo: payload.value });
+    CREATE_MEMO: async ({ commit }, payload) => {
+      const result = await CREATE_MEMO({ memo: payload.value });
       commit('SET_MEMO_LIST', result.data);
     },
     SET_FINDMEMO: ({ getters, commit }, payload) => {
