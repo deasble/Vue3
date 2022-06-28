@@ -41,7 +41,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const MEMO_LIST = computed(() => store.getters.MEMO_LIST);
+    const ALL_MEMO_LIST = computed(() => store.getters.ALL_MEMO_LIST);
 
     const isMemoList = ref(false);
 
@@ -50,6 +50,10 @@ export default defineComponent({
 
     const MAX_MEMO_LIST_INDEX = computed(
       () => MEMO_LIST.value.length / MAX_MEMO_LIST.value - 1
+    );
+
+    const MEMO_LIST = computed(() =>
+      ALL_MEMO_LIST.value.filter((memo) => memo.status !== "done")
     );
 
     const SHOW_MEMO_LIST = computed(() => {
@@ -71,8 +75,8 @@ export default defineComponent({
     };
 
     const onCreated = async () => {
-      await store.dispatch("SET_MEMO_LIST");
-      if (MEMO_LIST.value) {
+      await store.dispatch("SET_ALL_MEMO_LIST");
+      if (ALL_MEMO_LIST.value) {
         isMemoList.value = true;
       }
     };
@@ -111,9 +115,9 @@ export default defineComponent({
 
     .todo_list_items {
       li {
+        margin-bottom: 0.5rem;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 0.5rem;
 
         &:last-child {
           margin: 0;
