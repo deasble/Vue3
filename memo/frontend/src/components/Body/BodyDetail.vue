@@ -11,6 +11,9 @@
           <li v-for="list in SHOW_MEMO_LIST" :key="list">
             <span class="text-sm">{{ list.memo }}</span>
             <div>
+              <button class="btn">
+                <span class="text-sm">완료</span>
+              </button>
               <button class="btn update" @click="openModal(list.id)">
                 <font-awesome-icon icon="fa-solid fa-pen-to-square" />
               </button>

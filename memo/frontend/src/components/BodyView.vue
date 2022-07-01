@@ -1,12 +1,12 @@
 <template>
   <div class="todo_container">
+    <EditModal v-if="isModal" />
     <div class="todo_container_items">
       <BodyHeader />
-      <div class="boundary"></div>
+      <hr />
       <BodyDetail />
     </div>
   </div>
-  <Edit v-if="isModal" />
 </template>
 
 <script>
@@ -21,7 +21,7 @@ export default defineComponent({
     BodyDetail: defineAsyncComponent(() =>
       import("@/components/Body/BodyDetail.vue")
     ),
-    Edit: defineAsyncComponent(() => import("@/components/EditModal.vue")),
+    EditModal: defineAsyncComponent(() => import("@/components/EditModal.vue")),
   },
   setup() {
     const store = useStore();
