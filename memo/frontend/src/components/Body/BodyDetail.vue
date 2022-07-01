@@ -53,7 +53,7 @@ export default defineComponent({
     );
 
     const MEMO_LIST = computed(() =>
-      ALL_MEMO_LIST.value.filter((memo) => memo.status !== "done")
+      ALL_MEMO_LIST.value.filter((memo) => memo.status !== "delete")
     );
 
     const SHOW_MEMO_LIST = computed(() => {

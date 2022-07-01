@@ -41,7 +41,7 @@ app.put('/api/memo', body('memo', '공백입니다.').trim().notEmpty(), async (
 
 //memo 삭제
 app.delete('/api/memos/:id', async (req, res) => {
-  await database.run(`update memos set status='done' where id = ${req.params.id}`);
+  await database.run(`update memos set status='delete' where id = ${req.params.id}`);
   const result = await database.run(selectQuery);
   res.send(result);
 })
