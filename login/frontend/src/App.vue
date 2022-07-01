@@ -1,53 +1,59 @@
 <template>
   <div class="app">
-    <div v-if="isLogin">
-      <p>안녕하세요. {{ account.user.name }}님</p>
-    </div>
-    <div v-else>
-      <div class="loginid">
-        <span>아이디</span>
-        <input type="text" v-model="account.form.loginId" />
+    <div class="main">
+      <div class="item_box">
+        <div v-if="isLogin" class="mypage">
+          <p>안녕하세요. {{ account.name }}님</p>
+        </div>
+        <Login v-else />
+        <div class="btn_box">
+          <button class="btn" v-if="isLogin" @click="logout">
+            <span>로그아웃</span>
+          </button>
+          <button class="btn" v-else @click="login">
+            <span>로그인</span>
+          </button>
+        </div>
       </div>
-      <div class="loginpw">
-        <span>비밀번호</span>
-        <input type="password" v-model="account.form.loginPw" />
-      </div>
     </div>
-    <hr />
-    <button v-if="isLogin" @click="logout">
-      <span>로그아웃</span>
-    </button>
-    <button v-else @click="login"><span>로그인</span></button>
   </div>
 </template>
 
 <script>
-import { defineComponent, reactive, ref } from "vue";
+import {
+  computed,
+  defineAsyncComponent,
+  defineComponent,
+  reactive,
+  ref,
+} from "vue";
 import { FETCH_USER, POST_LOGIN, DELETE_LOGOUT } from "@/api/index.js";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  components: {},
+  components: {
+    Login: defineAsyncComponent(() => import("@/components/LoginView.vue")),
+  },
   setup() {
-    const account = reactive({
-      user: {
-        id: null,
-        name: "",
-      },
-      form: {
-        loginId: null,
-        loginPw: null,
-      },
+    const store = useStore();
+
+    const account = ref({
+      id: null,
+      name: "",
     });
+
+    const USER = computed(() => store.getters.USER);
+
     const isLogin = ref(false);
 
     const login = async () => {
       try {
         const args = {
-          id: account.form.loginId,
-          pw: account.form.loginPw,
+          id: USER.value.loginId,
+          pw: USER.value.loginPw,
         };
         const result = await POST_LOGIN(args);
-        account.user = result.data;
+        account.value = result.data;
         isLogin.value = true;
       } catch (error) {
         alert("로그인의 실패하였습니다.");
@@ -56,18 +62,18 @@ export default defineComponent({
 
     const logout = async () => {
       await DELETE_LOGOUT();
-      account.user.id = null;
-      account.user.name = "";
+      account.value.id = null;
+      account.value.name = "";
       isLogin.value = false;
     };
 
     const onCreated = async () => {
       try {
         const result = await FETCH_USER();
-        account.user = result.data;
+        account.value = result.data;
         isLogin.value = true;
       } catch (error) {
-        alert("로그인을 해주시길 바랍니다.");
+        console.error(error.message);
       }
     };
 
@@ -82,3 +88,43 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/function.scss";
+.app {
+  width: 100%;
+  height: 100%;
+  background: #e6e6e6;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  position: fixed;
+
+  .main {
+    width: 500px;
+    height: 100px;
+    margin: 0 auto;
+    display: flex;
+
+    background: #fff;
+
+    .item_box {
+      width: 100%;
+      display: flex;
+
+      .mypage {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+      }
+
+      .btn_box {
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+</style>
