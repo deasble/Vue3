@@ -31,7 +31,7 @@ export default createStore({
       commit('SET_ALL_MEMO_LIST', result.data);
     },
     SET_FINDMEMO: ({ getters, commit }, payload) => {
-      const result = getters.MEMO_LIST.find(memo => memo.id === payload)
+      const result = getters.ALL_MEMO_LIST.find(memo => memo.id === payload)
       commit('SET_FINDMEMO_ID', result.id);
       commit('SET_FINDMEMO_MEMO', result.memo);
     },

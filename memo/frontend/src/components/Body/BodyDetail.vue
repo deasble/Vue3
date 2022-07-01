@@ -12,10 +12,10 @@
             <span class="text-sm">{{ list.memo }}</span>
             <div>
               <button class="btn update" @click="openModal(list.id)">
-                <span class="text-sm">수정</span>
+                <font-awesome-icon icon="fa-solid fa-pen-to-square" />
               </button>
               <button class="btn delete" @click="remove(list.id)">
-                <span class="text-sm">삭제</span>
+                <font-awesome-icon icon="fa-solid fa-trash-can" />
               </button>
             </div>
           </li>
