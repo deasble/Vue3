@@ -21,8 +21,8 @@ export default defineComponent({
         name: "Home",
       },
       {
-        url: "/about",
-        name: "About",
+        url: "/todo",
+        name: "Todo",
       },
     ]);
 
