@@ -1,7 +1,7 @@
 <template>
   <div class="modal_bg">
     <div class="modal">
-      <ModalHead @closeModal="cons" />
+      <ModalHead @closeModal="$emit('closeModal')" />
       <hr />
       <ModalBody />
       <hr />
@@ -25,14 +25,9 @@ export default defineComponent({
       import("@/components/Modal/ModalFooter.vue")
     ),
   },
+  emits: ["closeModal"],
   setup() {
-    const cons = (closeModal) => {
-      console.log(closeModal);
-    };
-
-    return {
-      cons,
-    };
+    return {};
   },
 });
 </script>
