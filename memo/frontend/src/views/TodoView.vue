@@ -11,7 +11,7 @@
 
 <script>
 import { computed, defineAsyncComponent, defineComponent } from "vue";
-import { useModal } from "@/store/func.js";
+import { useModal } from "@/js/func.js";
 
 export default defineComponent({
   components: {
