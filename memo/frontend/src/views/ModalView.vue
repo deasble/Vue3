@@ -48,6 +48,7 @@ export default defineComponent({
     width: $width-size;
     margin: 50px auto;
     background: #fff;
+    border-radius: 0.5rem;
   }
 }
 </style>
