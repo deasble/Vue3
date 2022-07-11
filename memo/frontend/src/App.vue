@@ -1,6 +1,6 @@
 <template>
   <GNB />
-  <section style="padding-top: 70px">
+  <section style="padding-top: 68px">
     <router-view />
   </section>
 </template>
