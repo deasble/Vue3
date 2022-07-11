@@ -1,0 +1,22 @@
+.td_input {
+    outline: none;
+}
+
+.btn {
+
+    &.done {
+        color: green;
+    }
+
+    &.revert {
+        color: yellow;
+    }
+
+    &.edit {
+        color: blue;
+    }
+
+    &.delete {
+        color: red;
+    }
+}

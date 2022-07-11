@@ -1,0 +1,56 @@
+<template>
+  <div class="modal_bg">
+    <div class="modal">
+      <ModalHead @closeModal="cons" />
+      <hr />
+      <ModalBody />
+      <hr />
+      <ModalFooter />
+    </div>
+  </div>
+</template>
+
+<script>
+import { defineAsyncComponent, defineComponent } from "vue";
+
+export default defineComponent({
+  components: {
+    ModalHead: defineAsyncComponent(() =>
+      import("@/components/Modal/ModalHead.vue")
+    ),
+    ModalBody: defineAsyncComponent(() =>
+      import("@/components/Modal/ModalBody.vue")
+    ),
+    ModalFooter: defineAsyncComponent(() =>
+      import("@/components/Modal/ModalFooter.vue")
+    ),
+  },
+  setup() {
+    const cons = (closeModal) => {
+      console.log(closeModal);
+    };
+
+    return {
+      cons,
+    };
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.modal_bg {
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  .modal {
+    width: 500px;
+    margin: 50px auto;
+    background: #fff;
+  }
+}
+</style>
