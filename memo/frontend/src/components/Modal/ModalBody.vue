@@ -1,7 +1,10 @@
 <template>
   <section class="modal_body">
-    <div class="input_box">
-      <input class="td_input" type="text" v-model="FIND_TODO.memo" />
+    <div class="memo_edit_box">
+      <span>할 일</span>
+      <div class="input_box">
+        <input class="td_input" type="text" v-model="FIND_TODO.memo" />
+      </div>
     </div>
   </section>
 </template>
@@ -29,14 +32,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.modal_body {
-  .input_box {
-    padding: 20px 0;
+@import "@/assets/scss/function.scss";
 
-    .td_input {
-      width: 100%;
-      outline: 0;
-      border: 1px solid black;
+.modal_body {
+  .memo_edit_box {
+    padding: 10px 0 20px 5px;
+
+    .input_box {
+      margin-top: 5px;
+
+      .td_input {
+        width: $width-size - 20px;
+        outline: 0;
+        border: 1px solid black;
+      }
     }
   }
 }
