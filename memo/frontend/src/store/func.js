@@ -13,8 +13,7 @@ export function useModal() {
 
   const closeModal = (list) => {
     isModal.value = false;
-    // store.commit("SET_FIND_TODO", list);
-    console.log(list);
+    store.commit("SET_FIND_TODO", list);
   };
 
   return {
