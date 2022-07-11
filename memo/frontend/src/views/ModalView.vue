@@ -33,6 +33,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/function.scss";
+
 .modal_bg {
   background: rgba(0, 0, 0, 0.7);
   position: fixed;
@@ -43,7 +45,7 @@ export default defineComponent({
   z-index: 1;
 
   .modal {
-    width: 500px;
+    width: $width-size;
     margin: 50px auto;
     background: #fff;
   }
