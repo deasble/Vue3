@@ -2,7 +2,7 @@
   <header class="GNB">
     <div class="head">
       <div class="head_item">
-        <span>Todo</span>
+        <span>PROJECT 1</span>
       </div>
       <NAV />
     </div>
