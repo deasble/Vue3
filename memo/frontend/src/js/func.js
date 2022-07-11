@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -7,7 +8,7 @@ export function useModal() {
   const isModal = ref(false);
 
   const openModal = (list) => {
-    store.commit("SET_FIND_TODO", list);
+    store.commit("SET_FIND_TODO", _.cloneDeep(list));
     isModal.value = true;
   };
 
