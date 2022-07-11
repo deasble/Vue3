@@ -2,9 +2,9 @@
   <div class="todo">
     <div class="todo_items">
       <Head />
-      <hr />
       <Body @findMemo="openModal" />
     </div>
+    <Footer />
   </div>
   <Modal v-if="isModal" @closeModal="closeModal" />
 </template>
@@ -17,6 +17,9 @@ export default defineComponent({
   components: {
     Head: defineAsyncComponent(() => import("@/components/Todo/TodoHead.vue")),
     Body: defineAsyncComponent(() => import("@/components/Todo/TodoBody.vue")),
+    Footer: defineAsyncComponent(() =>
+      import("@/components/Todo/TodoFooter.vue")
+    ),
     Modal: defineAsyncComponent(() => import("@/views/ModalView.vue")),
   },
   setup() {
@@ -28,12 +31,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/function.scss";
+
 .todo {
   width: 100%;
   background: #c5c5c5;
 
   .todo_items {
-    width: 500px;
+    width: $width-size;
     background: #fff;
     margin: 0 auto;
   }
