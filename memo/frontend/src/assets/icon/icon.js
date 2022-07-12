@@ -12,6 +12,8 @@ import {
   faCheck,
   faArrowsRotate,
   faX,
+  faChevronDown,
+  faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 
@@ -22,7 +24,9 @@ export const icon = (app) => {
     faPenToSquare,
     faCheck,
     faArrowsRotate,
-    faX
+    faX,
+    faChevronDown,
+    faChevronUp
   );
   app.component("font-awesome-icon", FontAwesomeIcon);
 };
