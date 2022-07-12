@@ -19,13 +19,10 @@ app.post('/api/todolist', async (req, res) => {
   res.send(result)
 })
 
-app.put('/api/todolist', (req, res) => {
-  const result = todo_list.map(todo => {
-    if(todo.id === req.body.id) return todo = req.body;
-    else return todo
-  })
-  todo_list = result
-  res.send(todo_list)
+app.put('/api/todolist', async (req, res) => {
+  await database.run(`UPDATE todolist SET memo='${req.body.memo}' WHERE id=${req.body.id}`)
+  const result = await database.run(SELECT_QUERY);
+  res.send(result)
 })
 
 app.listen(port, () => {
