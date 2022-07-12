@@ -19,6 +19,7 @@ export default createStore({
     SET_TODO_LIST: (state, payload) => { state.todo_list = payload },
     SET_FIND_TODO: (state, payload) => { state.find_todo = payload },
     SET_FIND_TODO_MEMO: (state, payload) => { state.find_todo.memo = payload },
+    SET_FIND_TODO_STATUS: (state, payload) => { state.find_todo.status = payload },
   },
   actions: {
     SET_TODO_LIST: async ({ commit }) => {
@@ -31,6 +32,9 @@ export default createStore({
     },
     SET_FIND_TODO: ({ commit }, payload) => {
       commit("SET_FIND_TODO", payload);
+    },
+    SET_FIND_TODO_STATUS: ({ commit }, payload) => {
+      commit("SET_FIND_TODO_STATUS", payload)
     },
     Edit_TODO_LIST: async({ getters, commit }) => {
       const result = await EDIT_TODO(getters.FIND_TODO)

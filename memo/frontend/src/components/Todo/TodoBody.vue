@@ -25,7 +25,12 @@ export default defineComponent({
 
     const TODO_LIST = computed(() => store.getters.TODO_LIST);
 
-    provide("TODO_LIST", TODO_LIST);
+    const RE_TODO_LIST = computed(() => {
+      const result = TODO_LIST.value.filter((todo) => todo.status !== "delete");
+      return result;
+    });
+
+    provide("TODO_LIST", RE_TODO_LIST);
 
     const onCreated = async () => {
       await store.dispatch("SET_TODO_LIST");
