@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { createStore } from "vuex";
-import { FETCH_TODO_LIST, FETCH_TODO, EDIT_TODO } from "@/api/index.js"
+import { FETCH_TODO_LIST, FETCH_TODO, EDIT_TODO, CHANGE_STATUS } from "@/api/index.js"
 
 export default createStore({
   state: {
@@ -24,21 +24,20 @@ export default createStore({
   actions: {
     SET_TODO_LIST: async ({ commit }) => {
      const result = await FETCH_TODO_LIST();
-      commit("SET_TODO_LIST", result.data)
+      commit("SET_TODO_LIST", result.data);
     },
-    FETCH_TODO: async ({ getters, commit }, payload) => {
+    FETCH_TODO: async ({ commit }, payload) => {
       const result = await FETCH_TODO({ memo: payload });
-      commit("SET_TODO_LIST", result.data)
-    },
-    SET_FIND_TODO: ({ commit }, payload) => {
-      commit("SET_FIND_TODO", payload);
-    },
-    SET_FIND_TODO_STATUS: ({ commit }, payload) => {
-      commit("SET_FIND_TODO_STATUS", payload)
+      commit("SET_TODO_LIST", result.data);
     },
     Edit_TODO_LIST: async({ getters, commit }) => {
-      const result = await EDIT_TODO(getters.FIND_TODO)
-      commit("SET_TODO_LIST", result.data)
+      const result = await EDIT_TODO(getters.FIND_TODO);
+      commit("SET_TODO_LIST", result.data);
+    },
+    SET_FIND_TODO_STATUS: async ({ getters, commit }, payload) => {
+      commit("SET_FIND_TODO_STATUS", payload);
+      const result = await CHANGE_STATUS(getters.FIND_TODO);
+      commit("SET_TODO_LIST", result.data);
     },
   },
   modules: {},

@@ -7,11 +7,15 @@
           <button
             class="btn done"
             v-if="list.status === 'created'"
-            @click="Done(list)"
+            @click="CHANGE_STATUS(list, 'done')"
           >
             <font-awesome-icon icon="fa-solid fa-check" />
           </button>
-          <button v-else class="btn revert" @click="revert(list)">
+          <button
+            v-else
+            class="btn revert"
+            @click="CHANGE_STATUS(list, 'created')"
+          >
             <font-awesome-icon
               class="fa-spin"
               icon="fa-solid fa-arrows-rotate"
@@ -20,7 +24,7 @@
           <button class="btn edit" @click="$emit('findMemo', list)">
             <font-awesome-icon icon="fa-solid fa-pen-to-square" />
           </button>
-          <button class="btn delete" @click="del(list)">
+          <button class="btn delete" @click="CHANGE_STATUS(list, 'delete')">
             <font-awesome-icon icon="fa-solid fa-trash-can" />
           </button>
         </div>
@@ -40,29 +44,14 @@ export default defineComponent({
 
     const TODO_LIST = inject("TODO_LIST");
 
-    const Done = (list) => {
-      store.dispatch("SET_FIND_TODO", list);
-      store.dispatch("SET_FIND_TODO_STATUS", "done");
-      store.dispatch("Edit_TODO_LIST");
-    };
-
-    const revert = (list) => {
-      store.dispatch("SET_FIND_TODO", list);
-      store.dispatch("SET_FIND_TODO_STATUS", "created");
-      store.dispatch("Edit_TODO_LIST");
-    };
-
-    const del = (list) => {
-      store.dispatch("SET_FIND_TODO", list);
-      store.dispatch("SET_FIND_TODO_STATUS", "delete");
-      store.dispatch("Edit_TODO_LIST");
+    const CHANGE_STATUS = (list, status) => {
+      store.commit("SET_FIND_TODO", list);
+      store.dispatch("SET_FIND_TODO_STATUS", status);
     };
 
     return {
       TODO_LIST,
-      Done,
-      revert,
-      del,
+      CHANGE_STATUS,
     };
   },
 });

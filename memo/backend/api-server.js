@@ -25,6 +25,12 @@ app.put('/api/todolist', async (req, res) => {
   res.send(result)
 })
 
+app.put('/api/status', async (req, res) => {
+  await database.run(`UPDATE todolist SET status='${req.body.status}' WHERE id=${req.body.id}`)
+  const result = await database.run(SELECT_QUERY);
+  res.send(result)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on http://localhost:${port}`)
 })
