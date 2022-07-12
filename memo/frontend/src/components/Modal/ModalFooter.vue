@@ -1,8 +1,10 @@
 <template>
-  <footer class="footer">
-    <button class="btn" @click="Edit">
-      <span>수정</span>
-    </button>
+  <footer class="modal_footer">
+    <div class="btn_box">
+      <button class="btn" @click="Edit()">
+        <span>수정</span>
+      </button>
+    </div>
   </footer>
 </template>
 
@@ -11,11 +13,13 @@ import { defineComponent } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
-  setup() {
+  emits: ["closeModal"],
+  setup(props, { emit }) {
     const store = useStore();
 
     const Edit = () => {
       store.dispatch("Edit_TODO_LIST");
+      emit("closeModal");
     };
 
     return {
@@ -24,3 +28,16 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.modal_footer {
+  .btn_box {
+    display: block;
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+    }
+  }
+}
+</style>

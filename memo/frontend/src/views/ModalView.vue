@@ -5,7 +5,7 @@
       <hr />
       <ModalBody />
       <hr />
-      <ModalFooter />
+      <ModalFooter @closeModal="$emit('closeModal')" />
     </div>
   </div>
 </template>

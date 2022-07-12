@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { createStore } from "vuex";
-import { FETCH_TODO_LIST, FETCH_TODO } from "@/api/index.js"
+import { FETCH_TODO_LIST, FETCH_TODO, EDIT_TODO } from "@/api/index.js"
 
 export default createStore({
   state: {
@@ -32,13 +32,9 @@ export default createStore({
     SET_FIND_TODO: ({ commit }, payload) => {
       commit("SET_FIND_TODO", payload);
     },
-    Edit_TODO_LIST: ({ getters, commit }) => {
-      const Find_Todo = getters.FETCH_TODO; 
-      getters.TODO_LIST.forEach(todo => {
-        if(todo.id === Find_Todo.id) {
-          todo = Find_Todo;
-        }
-      });
+    Edit_TODO_LIST: async({ getters, commit }) => {
+      const result = await EDIT_TODO(getters.FIND_TODO)
+      commit("SET_TODO_LIST", result.data)
     },
   },
   modules: {},

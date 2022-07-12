@@ -2,7 +2,7 @@
   <header class="modal_head">
     <div class="modal_head_box">
       <span>할 일 수정</span>
-      <button class="btn" @click="$emit('closeModal', reset)">
+      <button class="btn" @click="$emit('closeModal')">
         <font-awesome-icon icon="fa-solid fa-x" />
       </button>
     </div>
@@ -15,15 +15,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   emits: ["closeModal"],
   setup() {
-    const reset = {
-      id: null,
-      memo: "",
-      status: "",
-    };
-
-    return {
-      reset,
-    };
+    return {};
   },
 });
 </script>

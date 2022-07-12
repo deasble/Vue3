@@ -19,6 +19,7 @@ export default defineComponent({
       import("@/components/Todo/Body/TodoBodyItem.vue")
     ),
   },
+  emits: ["findMemo"],
   setup() {
     const store = useStore();
 

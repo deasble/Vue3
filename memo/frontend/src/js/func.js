@@ -7,14 +7,20 @@ export function useModal() {
 
   const isModal = ref(false);
 
+  const reset = {
+    id: null,
+    memo: "",
+    status: "",
+  };
+
   const openModal = (list) => {
     store.commit("SET_FIND_TODO", _.cloneDeep(list));
     isModal.value = true;
   };
 
-  const closeModal = (list) => {
+  const closeModal = () => {
     isModal.value = false;
-    store.commit("SET_FIND_TODO", list);
+    store.commit("SET_FIND_TODO", reset);
   };
 
   return {
