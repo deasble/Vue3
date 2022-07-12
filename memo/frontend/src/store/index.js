@@ -27,7 +27,7 @@ export default createStore({
       commit("SET_TODO_LIST", result.data)
     },
     FETCH_TODO: async ({ getters, commit }, payload) => {
-      const result = await FETCH_TODO({id: getters.TODO_LIST.length, memo: payload, status: "created"});
+      const result = await FETCH_TODO({ memo: payload });
       commit("SET_TODO_LIST", result.data)
     },
     SET_FIND_TODO: ({ commit }, payload) => {

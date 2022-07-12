@@ -1,31 +1,22 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const database = require('./database');
 const app = express()
 const port = 3000
 
 app.use(bodyParser.json());
 
-let todo_list = [
-    {
-        id: 1,
-        memo: "메모 1",
-        status: "created",
-    },
-    {
-        id: 2,
-        memo: "메모 2",
-        status: "created",
-    },
-    
-]
+const SELECT_QUERY = "SELECT * FROM todolist";
 
-app.get('/api/todolist', (req, res) => {
-  res.send(todo_list)
+app.get('/api/todolist', async (req, res) => {
+  const result = await database.run(SELECT_QUERY);
+  res.send(result);
 })
 
-app.post('/api/todolist', (req, res) => {
-  todo_list.push(req.body);
-  res.send(todo_list)
+app.post('/api/todolist', async (req, res) => {
+  await database.run(`INSERT INTO todolist (memo) VALUES ('${req.body.memo}')`);
+  const result = await database.run(SELECT_QUERY);
+  res.send(result)
 })
 
 app.put('/api/todolist', (req, res) => {
