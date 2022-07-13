@@ -6,7 +6,9 @@
         :key="list"
         :class="list.status === 'done' ? 'todo_body_done' : 'todo_body_item'"
       >
-        <span>{{ list.memo }}</span>
+        <label for="btn_edit">
+          <span>{{ list.memo }}</span>
+        </label>
         <div class="btn_box">
           <button
             v-if="list.status === 'done'"
@@ -22,7 +24,11 @@
             <button class="btn done" @click="CHANGE_STATUS(list, 'done')">
               <font-awesome-icon icon="fa-solid fa-check" />
             </button>
-            <button class="btn edit" @click="$emit('findMemo', list)">
+            <button
+              id="btn_edit"
+              class="btn edit"
+              @click="$emit('findMemo', list)"
+            >
               <font-awesome-icon icon="fa-solid fa-pen-to-square" />
             </button>
             <button class="btn delete" @click="CHANGE_STATUS(list, 'delete')">
