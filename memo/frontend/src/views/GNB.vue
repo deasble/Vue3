@@ -30,7 +30,6 @@ export default defineComponent({
 
   .head {
     display: flex;
-    justify-content: start;
     padding: 10px 0;
     background: #fff;
 
