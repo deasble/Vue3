@@ -1,18 +1,15 @@
 <template>
   <div>
     <ul class="todo_body_items">
-      <li v-for="list in TODO_LIST" :key="list">
+      <li
+        v-for="list in TODO_LIST"
+        :key="list"
+        :class="list.status === 'done' ? 'todo_body_done' : 'todo_body_item'"
+      >
         <span>{{ list.memo }}</span>
         <div class="btn_box">
           <button
-            class="btn done"
-            v-if="list.status === 'created'"
-            @click="CHANGE_STATUS(list, 'done')"
-          >
-            <font-awesome-icon icon="fa-solid fa-check" />
-          </button>
-          <button
-            v-else
+            v-if="list.status === 'done'"
             class="btn revert"
             @click="CHANGE_STATUS(list, 'created')"
           >
@@ -21,12 +18,17 @@
               icon="fa-solid fa-arrows-rotate"
             />
           </button>
-          <button class="btn edit" @click="$emit('findMemo', list)">
-            <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-          </button>
-          <button class="btn delete" @click="CHANGE_STATUS(list, 'delete')">
-            <font-awesome-icon icon="fa-solid fa-trash-can" />
-          </button>
+          <div v-else>
+            <button class="btn done" @click="CHANGE_STATUS(list, 'done')">
+              <font-awesome-icon icon="fa-solid fa-check" />
+            </button>
+            <button class="btn edit" @click="$emit('findMemo', list)">
+              <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+            </button>
+            <button class="btn delete" @click="CHANGE_STATUS(list, 'delete')">
+              <font-awesome-icon icon="fa-solid fa-trash-can" />
+            </button>
+          </div>
         </div>
       </li>
     </ul>
@@ -61,7 +63,9 @@ export default defineComponent({
 @import "@/assets/scss/function.scss";
 
 .todo_body_items {
-  li {
+  background: #fff;
+
+  .todo_body_item {
     display: flex;
     justify-content: space-between;
     font-size: 1.3rem;
@@ -75,6 +79,28 @@ export default defineComponent({
 
     &:last-child {
       margin: 0;
+    }
+  }
+
+  .todo_body_done {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    padding-bottom: 10px;
+    background: gray;
+
+    span {
+      text-decoration: line-through;
+    }
+
+    .btn_box {
+      .btn {
+        margin-right: 10px;
+      }
+    }
+
+    &:last-child {
+      padding: 0;
     }
   }
 }
