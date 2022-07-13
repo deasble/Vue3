@@ -91,6 +91,7 @@ export default defineComponent({
 
     span {
       text-decoration: line-through;
+      color: #c5c5c5;
     }
 
     .btn_box {
