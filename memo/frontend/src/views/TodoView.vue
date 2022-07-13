@@ -2,6 +2,7 @@
   <div class="todo">
     <div class="todo_items">
       <Head />
+      <hr />
       <Body @findMemo="openModal" />
     </div>
     <Footer />
@@ -39,7 +40,6 @@ export default defineComponent({
 
   .todo_items {
     width: $width-size;
-    background: #fff;
     margin: 0 auto;
   }
 }

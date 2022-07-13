@@ -40,6 +40,7 @@ export default defineComponent({
 
 .todo_head {
   display: flex;
+  background: #fff;
 
   .td_input {
     width: 100%;
