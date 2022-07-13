@@ -6,7 +6,7 @@ const port = 3000
 
 app.use(bodyParser.json());
 
-const SELECT_QUERY = "SELECT * FROM todolist";
+const SELECT_QUERY = "SELECT * FROM todolist WHERE status != 'delete'";
 
 app.get('/api/todolist', async (req, res) => {
   const result = await database.run(SELECT_QUERY);

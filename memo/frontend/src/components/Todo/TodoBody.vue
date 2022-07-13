@@ -51,8 +51,7 @@ export default defineComponent({
 
     const RE_TODO_LIST = computed(() => {
       const START_INDEX = CHEVRON.value * TODO_LIST_LIMIT;
-      const result = TODO_LIST.value.filter((todo) => todo.status !== "delete");
-      return result.slice(START_INDEX, START_INDEX + TODO_LIST_LIMIT);
+      return TODO_LIST.value.slice(START_INDEX, START_INDEX + TODO_LIST_LIMIT);
     });
 
     provide("TODO_LIST", RE_TODO_LIST);
