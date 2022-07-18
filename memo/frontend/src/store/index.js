@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { createStore } from "vuex";
-import { FETCH_TODO_LIST, FETCH_TODO, EDIT_TODO, CHANGE_STATUS } from "@/api/index.js"
+import { FETCH_TODO_LIST, FETCH_TODO, EDIT_TODO, CHANGE_STATUS, CHANGE_LIST } from "@/api/index.js"
 
 export default createStore({
   state: {
@@ -37,6 +37,10 @@ export default createStore({
     SET_FIND_TODO_STATUS: async ({ getters, commit }, payload) => {
       commit("SET_FIND_TODO_STATUS", payload);
       const result = await CHANGE_STATUS(getters.FIND_TODO);
+      commit("SET_TODO_LIST", result.data);
+    },
+    CHANGE_LIST: async ({ commit }, payload) => {
+      const result = await CHANGE_LIST(payload);
       commit("SET_TODO_LIST", result.data);
     },
   },

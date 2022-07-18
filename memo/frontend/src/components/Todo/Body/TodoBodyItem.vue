@@ -1,65 +1,96 @@
 <template>
   <div>
     <ul class="todo_body_items">
-      <li
-        v-for="list in TODO_LIST"
-        :key="list"
-        :class="list.status === 'done' ? 'todo_body_done' : 'todo_body_item'"
-      >
-        <label for="btn_edit">
-          <span>{{ list.memo }}</span>
-        </label>
-        <div class="btn_box">
-          <button
-            v-if="list.status === 'done'"
-            class="btn revert"
-            @click="CHANGE_STATUS(list, 'created')"
+      <draggable v-model="TODO_LIST" @change="log">
+        <transition-group>
+          <li
+            v-for="list in TODO_LIST"
+            :key="list"
+            :class="
+              list.status === 'done' ? 'todo_body_done' : 'todo_body_item'
+            "
           >
-            <font-awesome-icon
-              class="fa-spin"
-              icon="fa-solid fa-arrows-rotate"
-            />
-          </button>
-          <div v-else>
-            <button class="btn done" @click="CHANGE_STATUS(list, 'done')">
-              <font-awesome-icon icon="fa-solid fa-check" />
-            </button>
-            <button
-              id="btn_edit"
-              class="btn edit"
-              @click="$emit('findMemo', list)"
-            >
-              <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-            </button>
-            <button class="btn delete" @click="CHANGE_STATUS(list, 'delete')">
-              <font-awesome-icon icon="fa-solid fa-trash-can" />
-            </button>
-          </div>
-        </div>
-      </li>
+            <label for="btn_edit">
+              <span>{{ list.memo }}</span>
+            </label>
+            <div class="btn_box">
+              <button
+                v-if="list.status === 'done'"
+                class="btn revert"
+                @click="CHANGE_STATUS(list, 'created')"
+              >
+                <font-awesome-icon
+                  class="fa-spin"
+                  icon="fa-solid fa-arrows-rotate"
+                />
+              </button>
+              <div v-else>
+                <button class="btn done" @click="CHANGE_STATUS(list, 'done')">
+                  <font-awesome-icon icon="fa-solid fa-check" />
+                </button>
+                <button
+                  id="btn_edit"
+                  class="btn edit"
+                  @click="$emit('findMemo', list)"
+                >
+                  <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                </button>
+                <button
+                  class="btn delete"
+                  @click="CHANGE_STATUS(list, 'delete')"
+                >
+                  <font-awesome-icon icon="fa-solid fa-trash-can" />
+                </button>
+              </div>
+            </div>
+          </li>
+        </transition-group>
+      </draggable>
     </ul>
   </div>
 </template>
 
 <script>
-import { defineComponent, inject } from "vue";
+import { computed, defineComponent, inject } from "vue";
 import { useStore } from "vuex";
+import { VueDraggableNext } from "vue-draggable-next";
 
 export default defineComponent({
+  components: {
+    draggable: VueDraggableNext,
+  },
   emits: ["openModal"],
-  setup() {
+  props: ["SHOW_TODO_LIST"],
+  setup(props) {
     const store = useStore();
 
-    const TODO_LIST = inject("TODO_LIST");
+    const TODO_LIST = computed({
+      get: () => props.SHOW_TODO_LIST,
+      set: (value) => store.commit("SET_TODO_LIST", value),
+    });
 
     const CHANGE_STATUS = (list, status) => {
       store.commit("SET_FIND_TODO", list);
       store.dispatch("SET_FIND_TODO_STATUS", status);
     };
 
+    const log = (event) => {
+      store.dispatch("CHANGE_LIST", {
+        event: event.moved,
+        length: TODO_LIST.value.length,
+      });
+    };
+
+    const onCreated = () => {
+      // console.log(props.SHOW_TODO_LIST);
+    };
+
+    onCreated();
+
     return {
       TODO_LIST,
       CHANGE_STATUS,
+      log,
     };
   },
 });
@@ -69,8 +100,6 @@ export default defineComponent({
 @import "@/assets/scss/function.scss";
 
 .todo_body_items {
-  background: #fff;
-
   .todo_body_item {
     display: flex;
     justify-content: space-between;
