@@ -10,9 +10,7 @@
               list.status === 'done' ? 'todo_body_done' : 'todo_body_item'
             "
           >
-            <label for="btn_edit">
-              <span>{{ list.memo }}</span>
-            </label>
+            <span>{{ list.memo }}</span>
             <div class="btn_box">
               <button
                 v-if="list.status === 'done'"
@@ -75,10 +73,7 @@ export default defineComponent({
     };
 
     const log = (event) => {
-      store.dispatch("CHANGE_LIST", {
-        event: event.moved,
-        length: TODO_LIST.value.length,
-      });
+      store.dispatch("CHANGE_LIST", event.moved);
     };
 
     const onCreated = () => {
