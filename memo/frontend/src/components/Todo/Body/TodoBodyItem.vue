@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="todo_body_items">
-      <draggable v-model="TODO_LIST" @change="log">
+      <draggable :list="TODO_LIST" @change="log">
         <transition-group>
           <li
             v-for="list in TODO_LIST"
@@ -29,7 +29,7 @@
                 <button
                   id="btn_edit"
                   class="btn edit"
-                  @click="$emit('findMemo', list)"
+                  @click="$emit('FindMemo', list)"
                 >
                   <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                 </button>
@@ -57,15 +57,12 @@ export default defineComponent({
   components: {
     draggable: VueDraggableNext,
   },
-  emits: ["openModal"],
-  props: ["SHOW_TODO_LIST"],
+  emits: ["FindMemo"],
+  props: ["SHOW_TODO_LIST", "CHEVRON", "TODO_LIST_LIMIT"],
   setup(props) {
     const store = useStore();
 
-    const TODO_LIST = computed({
-      get: () => props.SHOW_TODO_LIST,
-      set: (value) => store.commit("SET_TODO_LIST", value),
-    });
+    const TODO_LIST = computed(() => props.SHOW_TODO_LIST);
 
     const CHANGE_STATUS = (list, status) => {
       store.commit("SET_FIND_TODO", list);
@@ -73,7 +70,17 @@ export default defineComponent({
     };
 
     const log = (event) => {
-      store.dispatch("CHANGE_LIST", event.moved);
+      if (props.CHEVRON) {
+        store.dispatch("CHANGE_LIST", {
+          element: {
+            id: event.moved.element.id,
+          },
+          newIndex: props.TODO_LIST_LIMIT + event.moved.newIndex,
+          oldIndex: props.TODO_LIST_LIMIT + event.moved.oldIndex,
+        });
+      } else {
+        store.dispatch("CHANGE_LIST", event.moved);
+      }
     };
 
     const onCreated = () => {
