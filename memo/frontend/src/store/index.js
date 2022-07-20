@@ -40,6 +40,7 @@ export default createStore({
       commit("SET_TODO_LIST", result.data);
     },
     CHANGE_LIST: async ({ commit }, payload) => {
+
       const result = await CHANGE_LIST(payload);
       commit("SET_TODO_LIST", result.data);
     },

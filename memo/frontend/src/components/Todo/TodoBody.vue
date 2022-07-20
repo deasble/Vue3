@@ -8,7 +8,9 @@
       </div>
       <TodoBodyItem
         :SHOW_TODO_LIST="SHOW_TODO_LIST"
-        @findMemo="$emit('findMemo', $event)"
+        :CHEVRON="CHEVRON"
+        :TODO_LIST_LIMIT="TODO_LIST_LIMIT"
+        @FindMemo="$emit('FindMemo', $event)"
       />
       <div class="btn_box">
         <button class="btn" v-if="SHOW_LENGTH > CHEVRON" @click="plus">
@@ -39,7 +41,7 @@ export default defineComponent({
       import("@/components/Todo/Body/TodoBodyItem.vue")
     ),
   },
-  emits: ["findMemo"],
+  emits: ["FindMemo"],
   setup() {
     const store = useStore();
 

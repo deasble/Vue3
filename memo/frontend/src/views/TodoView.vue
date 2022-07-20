@@ -3,7 +3,7 @@
     <div class="todo_items">
       <Head />
       <hr />
-      <Body @findMemo="openModal" />
+      <Body @FindMemo="openModal" />
     </div>
     <Footer />
   </div>
