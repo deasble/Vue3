@@ -9,17 +9,17 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { useStore } from "vuex";
+import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
-  emits: ["closeModal"],
+  emits: ['closeModal'],
   setup(props, { emit }) {
     const store = useStore();
 
     const Edit = () => {
-      store.dispatch("Edit_TODO_LIST");
-      emit("closeModal");
+      store.dispatch('Edit_TODO_LIST');
+      emit('closeModal');
     };
 
     return {

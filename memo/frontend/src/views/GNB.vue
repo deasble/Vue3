@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import { defineAsyncComponent, defineComponent } from "vue";
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   components: {
-    NAV: defineAsyncComponent(() => import("@/components/GNB/NAV.vue")),
+    NAV: defineAsyncComponent(() => import('@/components/GNB/NAV.vue')),
   },
   setup() {},
 });

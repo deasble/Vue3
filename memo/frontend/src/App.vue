@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import { defineAsyncComponent, defineComponent } from "vue";
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   components: {
-    GNB: defineAsyncComponent(() => import("@/views/GNB.vue")),
+    GNB: defineAsyncComponent(() => import('@/views/GNB.vue')),
   },
   setup() {},
 });

@@ -2,85 +2,60 @@
   <div>
     <ul class="todo_body_items">
       <draggable :list="TODO_LIST" @change="log">
-        <transition-group>
-          <li
-            v-for="list in TODO_LIST"
-            :key="list"
-            :class="
-              list.status === 'done' ? 'todo_body_done' : 'todo_body_item'
-            "
+        <li
+          v-for="list in TODO_LIST"
+          :key="list"
+          :class="list.status === 'done' ? 'todo_body_done' : 'todo_body_item'"
+        >
+          <div class="head_box">
+            <button
+              v-if="list.status === 'done'"
+              class="btn revert"
+              @click="CHANGE_STATUS(list, 'created')"
+            >
+              <font-awesome-icon class="fa-spin" icon="fa-solid fa-arrows-rotate" />
+            </button>
+            <button v-else class="btn done" @click="CHANGE_STATUS(list, 'done')">
+              <font-awesome-icon icon="fa-solid fa-check" />
+            </button>
+            <button @click="$emit('FindMemo', list)">
+              <span>{{ list.memo }}</span>
+            </button>
+          </div>
+          <button
+            v-if="list.status !== 'done'"
+            class="btn delete"
+            @click="CHANGE_STATUS(list, 'delete')"
           >
-            <span>{{ list.memo }}</span>
-            <div class="btn_box">
-              <button
-                v-if="list.status === 'done'"
-                class="btn revert"
-                @click="CHANGE_STATUS(list, 'created')"
-              >
-                <font-awesome-icon
-                  class="fa-spin"
-                  icon="fa-solid fa-arrows-rotate"
-                />
-              </button>
-              <div v-else>
-                <button class="btn done" @click="CHANGE_STATUS(list, 'done')">
-                  <font-awesome-icon icon="fa-solid fa-check" />
-                </button>
-                <button
-                  id="btn_edit"
-                  class="btn edit"
-                  @click="$emit('FindMemo', list)"
-                >
-                  <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-                </button>
-                <button
-                  class="btn delete"
-                  @click="CHANGE_STATUS(list, 'delete')"
-                >
-                  <font-awesome-icon icon="fa-solid fa-trash-can" />
-                </button>
-              </div>
-            </div>
-          </li>
-        </transition-group>
+            <font-awesome-icon icon="fa-solid fa-trash-can" />
+          </button>
+        </li>
       </draggable>
     </ul>
   </div>
 </template>
 
 <script>
-import { computed, defineComponent, inject } from "vue";
-import { useStore } from "vuex";
-import { VueDraggableNext } from "vue-draggable-next";
+import { computed, defineComponent, inject } from 'vue';
+import { useStore } from 'vuex';
+import { VueDraggableNext } from 'vue-draggable-next';
 
 export default defineComponent({
   components: {
     draggable: VueDraggableNext,
   },
-  emits: ["FindMemo"],
-  props: ["SHOW_TODO_LIST", "CHEVRON", "TODO_LIST_LIMIT"],
+  emits: ['FindMemo'],
+  props: ['TODO_LIST'],
   setup(props) {
     const store = useStore();
 
-    const TODO_LIST = computed(() => props.SHOW_TODO_LIST);
-
     const CHANGE_STATUS = (list, status) => {
-      store.commit("SET_FIND_TODO", list);
-      store.dispatch("SET_FIND_TODO_STATUS", status);
+      store.commit('SET_FIND_TODO', list);
+      store.dispatch('SET_FIND_TODO_STATUS', status);
     };
 
-    const log = (event) => {
-      if (props.CHEVRON) {
-        store.dispatch("CHANGE_LIST", {
-          element: {
-            id: event.moved.element.id,
-          },
-          newIndex: props.TODO_LIST_LIMIT + event.moved.newIndex,
-          oldIndex: props.TODO_LIST_LIMIT + event.moved.oldIndex,
-        });
-      } else {
-        store.dispatch("CHANGE_LIST", event.moved);
-      }
+    const log = event => {
+      store.dispatch('CHANGE_LIST', event.moved);
     };
 
     const onCreated = () => {
@@ -90,7 +65,6 @@ export default defineComponent({
     onCreated();
 
     return {
-      TODO_LIST,
       CHANGE_STATUS,
       log,
     };
@@ -99,7 +73,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/function.scss";
+@import '@/assets/scss/function.scss';
 
 .todo_body_items {
   .todo_body_item {

@@ -1,22 +1,17 @@
 <template>
   <div class="todo_body">
-    <div v-if="SHOW_TODO_LIST.length">
-      <div class="btn_box">
+    <div v-if="TODO_LIST.length">
+      <!-- <div class="btn_box">
         <button class="btn" v-if="CHEVRON" @click="down">
           <font-awesome-icon icon="fa-solid fa-chevron-up" />
         </button>
-      </div>
-      <TodoBodyItem
-        :SHOW_TODO_LIST="SHOW_TODO_LIST"
-        :CHEVRON="CHEVRON"
-        :TODO_LIST_LIMIT="TODO_LIST_LIMIT"
-        @FindMemo="$emit('FindMemo', $event)"
-      />
-      <div class="btn_box">
+      </div> -->
+      <TodoBodyItem :TODO_LIST="TODO_LIST" @FindMemo="$emit('FindMemo', $event)" />
+      <!-- <div class="btn_box">
         <button class="btn" v-if="SHOW_LENGTH > CHEVRON" @click="plus">
           <font-awesome-icon icon="fa-solid fa-chevron-down" />
         </button>
-      </div>
+      </div> -->
     </div>
     <div v-else class="empty">
       <span>할 일이 없습니다.</span>
@@ -25,64 +20,51 @@
 </template>
 
 <script>
-import {
-  computed,
-  defineAsyncComponent,
-  defineComponent,
-  provide,
-  ref,
-} from "vue";
-import { useStore } from "vuex";
-import _ from "lodash";
+import { computed, defineAsyncComponent, defineComponent, provide, ref } from 'vue';
+import { useStore } from 'vuex';
+import _ from 'lodash';
 
 export default defineComponent({
   components: {
-    TodoBodyItem: defineAsyncComponent(() =>
-      import("@/components/Todo/Body/TodoBodyItem.vue")
-    ),
+    TodoBodyItem: defineAsyncComponent(() => import('@/components/Todo/Body/TodoBodyItem.vue')),
   },
-  emits: ["FindMemo"],
+  emits: ['FindMemo'],
   setup() {
     const store = useStore();
 
     const TODO_LIST = computed(() => store.getters.TODO_LIST);
 
-    const CHEVRON = ref(0);
-    const TODO_LIST_LIMIT = 5;
+    // const CHEVRON = ref(0);
+    // const TODO_LIST_LIMIT = 5;
 
-    const SHOW_LENGTH = computed(
-      () => Math.ceil(TODO_LIST.value.length / TODO_LIST_LIMIT) - 1
-    );
+    // const SHOW_LENGTH = computed(
+    //   () => Math.ceil(TODO_LIST.value.length / TODO_LIST_LIMIT) - 1
+    // );
 
-    const SHOW_TODO_LIST = computed(() => {
-      const START_INDEX = CHEVRON.value * TODO_LIST_LIMIT;
-      return _.cloneDeep(TODO_LIST.value).slice(
-        START_INDEX,
-        START_INDEX + TODO_LIST_LIMIT
-      );
-    });
+    // const SHOW_TODO_LIST = computed(() => {
+    //   const START_INDEX = CHEVRON.value * TODO_LIST_LIMIT;
+    //   return _.cloneDeep(TODO_LIST.value).slice(
+    //     START_INDEX,
+    //     START_INDEX + TODO_LIST_LIMIT
+    //   );
+    // });
 
-    const plus = () => {
-      CHEVRON.value++;
-    };
+    // const plus = () => {
+    //   CHEVRON.value++;
+    // };
 
-    const down = () => {
-      CHEVRON.value--;
-    };
+    // const down = () => {
+    //   CHEVRON.value--;
+    // };
 
     const onCreated = async () => {
-      await store.dispatch("SET_TODO_LIST");
+      await store.dispatch('SET_TODO_LIST');
     };
 
     onCreated();
 
     return {
-      CHEVRON,
-      TODO_LIST_LIMIT,
-      SHOW_LENGTH,
-      SHOW_TODO_LIST,
-      plus,
-      down,
+      TODO_LIST,
     };
   },
 });
@@ -91,6 +73,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .todo_body {
   background: #fff;
+  height: 300px;
 
   .btn_box {
     text-align: center;

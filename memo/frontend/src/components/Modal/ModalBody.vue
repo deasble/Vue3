@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   setup() {
@@ -20,7 +20,7 @@ export default defineComponent({
     const FIND_TODO = computed({
       get: () => store.getters.FIND_TODO,
       set(value) {
-        store.commit("SET_FIND_TODO_MEMO", value);
+        store.commit('SET_FIND_TODO_MEMO', value);
       },
     });
 
@@ -32,7 +32,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/function.scss";
+@import '@/assets/scss/function.scss';
 
 .modal_body {
   .memo_edit_box {

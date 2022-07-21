@@ -11,17 +11,15 @@
 </template>
 
 <script>
-import { computed, defineAsyncComponent, defineComponent } from "vue";
-import { useModal } from "@/js/func.js";
+import { computed, defineAsyncComponent, defineComponent } from 'vue';
+import { useModal } from '@/js/func.js';
 
 export default defineComponent({
   components: {
-    Head: defineAsyncComponent(() => import("@/components/Todo/TodoHead.vue")),
-    Body: defineAsyncComponent(() => import("@/components/Todo/TodoBody.vue")),
-    Footer: defineAsyncComponent(() =>
-      import("@/components/Todo/TodoFooter.vue")
-    ),
-    Modal: defineAsyncComponent(() => import("@/views/ModalView.vue")),
+    Head: defineAsyncComponent(() => import('@/components/Todo/TodoHead.vue')),
+    Body: defineAsyncComponent(() => import('@/components/Todo/TodoBody.vue')),
+    Footer: defineAsyncComponent(() => import('@/components/Todo/TodoFooter.vue')),
+    Modal: defineAsyncComponent(() => import('@/views/ModalView.vue')),
   },
   setup() {
     return {
@@ -32,7 +30,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/function.scss";
+@import '@/assets/scss/function.scss';
 
 .todo {
   width: 100%;

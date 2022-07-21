@@ -11,18 +11,18 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   setup() {
     const NAVBAR = reactive([
       {
-        url: "/",
-        name: "Home",
+        url: '/',
+        name: 'Home',
       },
       {
-        url: "/todo",
-        name: "Todo",
+        url: '/todo',
+        name: 'Todo',
       },
     ]);
 

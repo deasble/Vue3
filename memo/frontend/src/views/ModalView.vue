@@ -11,21 +11,15 @@
 </template>
 
 <script>
-import { defineAsyncComponent, defineComponent } from "vue";
+import { defineAsyncComponent, defineComponent } from 'vue';
 
 export default defineComponent({
   components: {
-    ModalHead: defineAsyncComponent(() =>
-      import("@/components/Modal/ModalHead.vue")
-    ),
-    ModalBody: defineAsyncComponent(() =>
-      import("@/components/Modal/ModalBody.vue")
-    ),
-    ModalFooter: defineAsyncComponent(() =>
-      import("@/components/Modal/ModalFooter.vue")
-    ),
+    ModalHead: defineAsyncComponent(() => import('@/components/Modal/ModalHead.vue')),
+    ModalBody: defineAsyncComponent(() => import('@/components/Modal/ModalBody.vue')),
+    ModalFooter: defineAsyncComponent(() => import('@/components/Modal/ModalFooter.vue')),
   },
-  emits: ["closeModal"],
+  emits: ['closeModal'],
   setup() {
     return {};
   },
@@ -33,7 +27,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/function.scss";
+@import '@/assets/scss/function.scss';
 
 .modal_bg {
   background: rgba(0, 0, 0, 0.7);

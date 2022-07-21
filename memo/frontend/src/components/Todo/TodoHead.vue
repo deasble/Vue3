@@ -1,11 +1,6 @@
 <template>
   <div class="todo_head">
-    <input
-      type="text"
-      class="td_input"
-      v-model="todo"
-      @keyup.enter="SET_TODO_LIST"
-    />
+    <input type="text" class="td_input" v-model="todo" @keyup.enter="SET_TODO_LIST" />
     <button class="btn" @click="SET_TODO_LIST">
       <font-awesome-icon icon="fa-solid fa-circle-plus" />
     </button>
@@ -13,18 +8,18 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
-import { useStore } from "vuex";
+import { defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   setup() {
     const store = useStore();
 
-    const todo = ref("");
+    const todo = ref('');
 
     const SET_TODO_LIST = () => {
-      store.dispatch("FETCH_TODO", todo.value);
-      todo.value = "";
+      store.dispatch('FETCH_TODO', todo.value);
+      todo.value = '';
     };
 
     return {
@@ -36,7 +31,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/function.scss";
+@import '@/assets/scss/function.scss';
 
 .todo_head {
   display: flex;
