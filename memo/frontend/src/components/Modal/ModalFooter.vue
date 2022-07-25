@@ -32,11 +32,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 .modal_footer {
   .btn_box {
-    display: block;
+    display: flex;
+    justify-content: end;
+    padding: 10px;
     .btn {
-      display: block;
-      width: 100%;
-      padding: 10px 0;
+      background: #007bff;
+      border-radius: 0.2rem;
+      padding: 5px 20px;
+      color: #fff;
     }
   }
 }
