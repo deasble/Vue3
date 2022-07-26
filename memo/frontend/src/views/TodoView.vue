@@ -5,7 +5,6 @@
       <hr />
       <Body @FindMemo="openModal" />
     </div>
-    <Footer />
   </div>
   <Modal v-if="isModal" @closeModal="closeModal" />
 </template>
@@ -18,7 +17,6 @@ export default defineComponent({
   components: {
     Head: defineAsyncComponent(() => import('@/components/Todo/TodoHead.vue')),
     Body: defineAsyncComponent(() => import('@/components/Todo/TodoBody.vue')),
-    Footer: defineAsyncComponent(() => import('@/components/Todo/TodoFooter.vue')),
     Modal: defineAsyncComponent(() => import('@/views/ModalView.vue')),
   },
   setup() {
