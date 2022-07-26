@@ -33,7 +33,7 @@ export default defineComponent({
 .modal_footer {
   .btn_box {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 10px;
     .btn {
       background: #007bff;
