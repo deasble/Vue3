@@ -1,6 +1,6 @@
 <template>
-  <div class="todo">
-    <div class="todo_items">
+  <div class="todo_bg">
+    <div class="todo">
       <Head />
       <hr />
       <Body @FindMemo="openModal" />
@@ -30,11 +30,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/scss/function.scss';
 
-.todo {
+.todo_bg {
   width: 100%;
   background: #c5c5c5;
 
-  .todo_items {
+  .todo {
     width: $width-size;
     margin: 0 auto;
   }

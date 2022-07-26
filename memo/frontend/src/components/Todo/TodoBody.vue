@@ -1,18 +1,10 @@
 <template>
   <div class="todo_body">
-    <div v-if="TODO_LIST.length">
-      <!-- <div class="btn_box">
-        <button class="btn" v-if="CHEVRON" @click="down">
-          <font-awesome-icon icon="fa-solid fa-chevron-up" />
-        </button>
-      </div> -->
-      <TodoBodyItem :TODO_LIST="TODO_LIST" @FindMemo="$emit('FindMemo', $event)" />
-      <!-- <div class="btn_box">
-        <button class="btn" v-if="SHOW_LENGTH > CHEVRON" @click="plus">
-          <font-awesome-icon icon="fa-solid fa-chevron-down" />
-        </button>
-      </div> -->
-    </div>
+    <TodoBodyItem
+      v-if="TODO_LIST.length"
+      :TODO_LIST="TODO_LIST"
+      @FindMemo="$emit('FindMemo', $event)"
+    />
     <div v-else class="empty">
       <span>할 일이 없습니다.</span>
     </div>
@@ -72,8 +64,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .todo_body {
+  height: 50vh;
   background: #fff;
-  height: 300px;
+  overflow: auto;
+  overflow-x: hidden;
 
   .btn_box {
     text-align: center;

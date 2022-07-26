@@ -1,23 +1,14 @@
 <template>
-  <div>
+  <div class="todo_list">
     <ul class="todo_body_items">
-      <draggable :list="TODO_LIST" @change="log">
+      <draggable class="todo_body_items_drag" :list="TODO_LIST" @change="log">
         <li
           v-for="list in TODO_LIST"
           :key="list"
           :class="list.status === 'done' ? 'todo_body_done' : 'todo_body_item'"
         >
           <div class="head_box">
-            <button
-              v-if="list.status === 'done'"
-              class="btn revert"
-              @click="CHANGE_STATUS(list, 'created')"
-            >
-              <font-awesome-icon class="fa-spin" icon="fa-solid fa-arrows-rotate" />
-            </button>
-            <button v-else class="btn done" @click="CHANGE_STATUS(list, 'done')">
-              <font-awesome-icon icon="fa-solid fa-check" />
-            </button>
+            <input type="checkbox" v-model="status" true-value="done" false-value="created" />
             <button @click="$emit('FindMemo', list)">
               <span>{{ list.memo }}</span>
             </button>
@@ -36,7 +27,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, inject } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 import { VueDraggableNext } from 'vue-draggable-next';
 
@@ -49,9 +40,12 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
 
-    const CHANGE_STATUS = (list, status) => {
-      store.commit('SET_FIND_TODO', list);
-      store.dispatch('SET_FIND_TODO_STATUS', status);
+    const status = ref(false);
+
+    const CHANGE_STATUS = list => {
+      console.log(status.value);
+      // store.commit('SET_FIND_TODO', list);
+      // store.dispatch('SET_FIND_TODO_STATUS', status);
     };
 
     const log = event => {
@@ -65,6 +59,7 @@ export default defineComponent({
     onCreated();
 
     return {
+      status,
       CHANGE_STATUS,
       log,
     };
@@ -75,44 +70,52 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/scss/function.scss';
 
-.todo_body_items {
-  .todo_body_item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+.todo_list {
+  .todo_body_items {
+    .todo_body_items_drag {
+      .todo_body_item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
 
-    .btn_box {
-      .btn {
-        margin-right: 10px;
+        .head_box {
+          .btn {
+            margin: 0 5px 0 10px;
+          }
+        }
+
+        .btn {
+          margin-right: 10px;
+        }
+
+        &:last-child {
+          margin: 0;
+        }
       }
-    }
 
-    &:last-child {
-      margin: 0;
-    }
-  }
+      .todo_body_done {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.3rem;
+        padding-bottom: 10px;
+        background: gray;
 
-  .todo_body_done {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.3rem;
-    padding-bottom: 10px;
-    background: gray;
+        .head_box {
+          .btn {
+            margin: 0 5px 0 10px;
+          }
 
-    span {
-      text-decoration: line-through;
-      color: #c5c5c5;
-    }
+          span {
+            text-decoration: line-through;
+            color: #c5c5c5;
+          }
+        }
 
-    .btn_box {
-      .btn {
-        margin-right: 10px;
+        &:last-child {
+          padding: 0;
+        }
       }
-    }
-
-    &:last-child {
-      padding: 0;
     }
   }
 }
