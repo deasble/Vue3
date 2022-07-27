@@ -8,7 +8,13 @@
           :class="list.status === 'done' ? 'todo_body_done' : 'todo_body_item'"
         >
           <div class="head_box">
-            <input type="checkbox" v-model="status" true-value="done" false-value="created" />
+            <input
+              type="checkbox"
+              v-model="list.status"
+              true-value="done"
+              false-value="created"
+              @change="CHANGE_STATUS(list, list.status)"
+            />
             <button @click="$emit('FindMemo', list)">
               <span>{{ list.memo }}</span>
             </button>
@@ -27,7 +33,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import { VueDraggableNext } from 'vue-draggable-next';
 
@@ -40,12 +46,9 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
 
-    const status = ref(false);
-
-    const CHANGE_STATUS = list => {
-      console.log(status.value);
-      // store.commit('SET_FIND_TODO', list);
-      // store.dispatch('SET_FIND_TODO_STATUS', status);
+    const CHANGE_STATUS = (list, status) => {
+      store.commit('SET_FIND_TODO', list);
+      store.dispatch('SET_FIND_TODO_STATUS', status);
     };
 
     const log = event => {
@@ -59,7 +62,6 @@ export default defineComponent({
     onCreated();
 
     return {
-      status,
       CHANGE_STATUS,
       log,
     };
