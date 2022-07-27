@@ -36,13 +36,13 @@ export default defineComponent({
 
 .modal_body {
   .memo_edit_box {
-    padding: 10px 0 20px 5px;
+    padding: 20px;
 
     .input_box {
       margin-top: 5px;
 
       .td_input {
-        width: $width-size - 20px;
+        width: 100%;
         outline: 0;
         border: 1px solid black;
       }
