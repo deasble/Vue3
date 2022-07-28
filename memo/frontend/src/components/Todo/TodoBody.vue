@@ -2,7 +2,7 @@
   <div class="todo_body">
     <TodoBodyItem
       v-if="TODO_LIST.length"
-      :TODO_LIST="SHOW_TODO_LIST"
+      :TODO_LIST="TODO_LIST"
       @FindMemo="$emit('FindMemo', $event)"
     />
     <div v-else class="empty">
@@ -25,10 +25,6 @@ export default defineComponent({
     const store = useStore();
 
     const TODO_LIST = computed(() => store.getters.TODO_LIST);
-
-    const SHOW_TODO_LIST = computed(() =>
-      TODO_LIST.value.filter(todo => todo.status === 'created')
-    );
 
     // const CHEVRON = ref(0);
     // const TODO_LIST_LIMIT = 5;
@@ -61,7 +57,6 @@ export default defineComponent({
 
     return {
       TODO_LIST,
-      SHOW_TODO_LIST,
     };
   },
 });

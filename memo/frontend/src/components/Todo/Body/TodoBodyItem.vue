@@ -12,6 +12,7 @@
               type="checkbox"
               v-model="list.status"
               true-value="done"
+              false-value="created"
               @change="CHANGE_STATUS(list, list.status)"
             />
             <button @click="$emit('FindMemo', list)">
