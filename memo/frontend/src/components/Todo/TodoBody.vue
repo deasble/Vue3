@@ -64,7 +64,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .todo_body {
-  height: 50vh;
+  height: 52vh;
   background: #fff;
   overflow: auto;
   overflow-x: hidden;
