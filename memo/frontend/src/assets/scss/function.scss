@@ -6,19 +6,15 @@ $width-size: 750px;
 
 .btn {
 
-    &.done {
-        color: green;
-    }
-
-    &.revert {
-        color: yellow;
-    }
-
-    &.edit {
-        color: blue;
-    }
-
     &.delete {
         color: red;
+    }
+
+    &.mypage {
+        border: 2px solid;
+        padding: 10px;
+        margin-right: 10px;
+        font-weight: bold;
+        color: purple;
     }
 }

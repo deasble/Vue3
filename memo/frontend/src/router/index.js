@@ -11,6 +11,11 @@ const routes = [
     name: 'Todo',
     component: () => import('@/views/TodoView.vue'),
   },
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    component: () => import('@/views/MYPAGE.vue'),
+  },
 ];
 
 const router = createRouter({

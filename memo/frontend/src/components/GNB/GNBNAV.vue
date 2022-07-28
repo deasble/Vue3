@@ -2,7 +2,7 @@
   <nav class="nav">
     <ul class="nav_items">
       <li class="nav_items_item" v-for="nav in NAVBAR" :key="nav">
-        <router-link :to="nav.url">
+        <router-link :to="nav.name">
           <span>{{ nav.name }}</span>
         </router-link>
       </li>
@@ -17,8 +17,10 @@ export default defineComponent({
   setup() {
     const NAVBAR = reactive([
       {
-        url: '/todo',
         name: 'Todo',
+      },
+      {
+        name: 'MyPage',
       },
     ]);
 

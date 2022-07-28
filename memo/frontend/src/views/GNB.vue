@@ -1,12 +1,12 @@
 <template>
-  <header class="GNB">
-    <div class="head">
-      <div class="head_item">
-        <a href="/">
+  <header class="GNB_bg">
+    <div class="GNB">
+      <div class="menu">
+        <a href="/" class="title">
           <span>PROJECT 1</span>
         </a>
+        <NAV />
       </div>
-      <NAV />
     </div>
   </header>
 </template>
@@ -23,22 +23,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.GNB {
+@import '@/assets/scss/function.scss';
+
+.GNB_bg {
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 1;
   border-bottom: 1px solid black;
 
-  .head {
+  .GNB {
     display: flex;
+    justify-content: space-between;
     padding: 10px 0;
     background: #fff;
 
-    .head_item {
-      padding: 0 20px;
-      font-size: 2rem;
-      font-weight: bold;
+    .menu {
+      display: flex;
+
+      .title {
+        margin: 0 20px;
+        font-size: 2rem;
+        font-weight: bold;
+      }
     }
   }
 }
