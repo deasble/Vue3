@@ -19,11 +19,7 @@
               <span>{{ list.memo }}</span>
             </button>
           </div>
-          <button
-            v-if="list.status !== 'done'"
-            class="btn delete"
-            @click="CHANGE_STATUS(list, 'delete')"
-          >
+          <button v-if="list.status !== 'done'" class="btn delete" @click="deletion(list)">
             <font-awesome-icon icon="fa-solid fa-trash-can" />
           </button>
         </li>
@@ -51,6 +47,14 @@ export default defineComponent({
       store.dispatch('SET_FIND_TODO_STATUS', status);
     };
 
+    const deletion = list => {
+      const bool = confirm(`${list.memo}을(를) 삭제하시겠습니까?`);
+      if (bool) {
+        store.commit('SET_FIND_TODO', list);
+        store.dispatch('SET_FIND_TODO_STATUS', 'delete');
+      }
+    };
+
     const log = event => {
       store.dispatch('CHANGE_LIST', event.moved);
     };
@@ -63,6 +67,7 @@ export default defineComponent({
 
     return {
       CHANGE_STATUS,
+      deletion,
       log,
     };
   },
