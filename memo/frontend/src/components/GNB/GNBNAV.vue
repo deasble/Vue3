@@ -17,10 +17,6 @@ export default defineComponent({
   setup() {
     const NAVBAR = reactive([
       {
-        url: '/',
-        name: 'Home',
-      },
-      {
         url: '/todo',
         name: 'Todo',
       },
@@ -35,7 +31,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .nav {
-  padding-top: 13px;
+  display: flex;
+  align-items: center;
 
   .nav_items {
     display: flex;
